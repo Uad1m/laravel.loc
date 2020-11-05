@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
             'country' => 'nullable|string|max:100',
             'city' => 'nullable|string|max:100',
             'phone' => 'nullable|string|max:30',
-            'role' => 'nullable|string'
+            'role' => 'nullable|string|not_in:admin'
         ];
     }
 }

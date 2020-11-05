@@ -36,7 +36,7 @@ class Organization extends Model
 
     public function vacancies()
     {
-        return $this->hasMany(Vacancy::class,'foreign_key');//->withTimestamps();
+        return $this->hasMany(Vacancy::class);//->withTimestamps();
     }
 }
 

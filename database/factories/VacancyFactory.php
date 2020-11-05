@@ -24,8 +24,10 @@ class VacancyFactory extends Factory
         return [
             'vacancy_name' => $this->faker-> jobTitle,
             'workers_amount' => $this->faker->numberBetween(1,10),
+            'workers_apply_amount' => $this->faker->numberBetween(0,1),
             'salary' =>$this->faker->numberBetween(3000,15000),
             'organization_id' =>$this->faker->numberBetween(1,10),
+            'user_id' =>$this->faker->numberBetween(1,10)
         ];
     }
 }

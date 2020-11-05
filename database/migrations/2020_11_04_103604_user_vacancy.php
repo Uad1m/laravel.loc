@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\User;
-use App\Models\Organization;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\User;
+use App\Models\Vacancy;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserOrganizationTable extends Migration
+class UserVacancy extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,11 @@ class CreateUserOrganizationTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_organization', function (Blueprint $table) {
-            $table->primary(['organization_id', 'user_id']);
-            $table->foreignIdFor(Organization::class, 'organization_id');
+        Schema::create('user_vacancy', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->foreignIdFor(User::class, 'user_id');
-            $table->timestamps();
-        });
+            $table->foreignIdFor(Vacancy::class, 'vacancy_id');
+             });
     }
 
     /**
@@ -30,6 +29,6 @@ class CreateUserOrganizationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_organization');
+        //
     }
 }

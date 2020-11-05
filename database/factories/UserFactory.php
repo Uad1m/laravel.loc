@@ -35,5 +35,6 @@ class UserFactory extends Factory
             'role' => Arr::random(['Worker', 'Employer']),
             //'remember_token' => Str::random(10),
         ];
+
     }
 }

@@ -19,8 +19,8 @@ class CreateVacanciesTable extends Migration
             $table->string('vacancy_name');
             $table->integer('workers_amount');
             $table->integer('workers_apply_amount')->default('0');
-            $table->integer('vacancy_active')->default('1'); //1-active, 0-inactive
             $table->foreignIdFor(Organization::class, 'organization_id');
+            $table->foreignIdFor(Organization::class, 'user_id');
             $table->string('salary');
             $table->timestamps();
             $table->softDeletes();

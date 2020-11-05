@@ -37,10 +37,19 @@ Route::group(['middleware' => ['api']], function () {
 });
 
 
-
-
+Route::middleware(['auth:sanctum'])->group(function () {
+		Route::apiResource('user', UserController::class)->except(['store']);
+		Route::apiResource('organization', OrganizationController::class);
+		Route::apiResource('vacancy', VacancyController::class);
+		Route::post('vacancy-book', [VacancyController::class, 'book']);
+		Route::post('vacancy-unbook', [VacancyController::class, 'unbook']);
+		Route::get('stats/vacancy', [VacancyController::class, 'statsVacancy']);
+		Route::get('stats/organization', [OrganizationController::class, 'statsOrganization']);
+		Route::get('stats/user', [UserController::class, 'statsUser']);
+});
+/*
 Route::apiResource('user', UserController::class)->except(['store']);
 Route::apiResource('organization', OrganizationController::class);
 Route::apiResource('vacancy', VacancyController::class);
-
+*/
 Route::fallback([AuthController::class, 'fallback']);

@@ -3,10 +3,12 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Vacancy;
+use App\Models\Organization;
+use Illuminate\Http\Request;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
 
-class UserPolicy
+class VacancyPolicy
 {
     use HandlesAuthorization;
 
@@ -25,19 +27,19 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Vacancy  $vacancy
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, Vacancy $vacancy)
     {
-        return $model->id == auth()->id();
+        //
     }
 
     /**
@@ -48,41 +50,42 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Vacancy  $vacancy
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update(User $user, Vacancy $vacancy)
     {
-        return $model->id == auth()->id();
+        return $user->role == 'Employer' and $user->id == $vacancy->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Vacancy  $vacancy
      * @return mixed
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, Vacancy $vacancy)
     {
-        return $model->id == auth()->id();
+        return $user->role == 'Employer' and $user->id == $vacancy->user_id;
+        //Organization::find($vacancy->organization_id)->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Vacancy  $vacancy
      * @return mixed
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, Vacancy $vacancy)
     {
         //
     }
@@ -91,11 +94,25 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\Vacancy  $vacancy
      * @return mixed
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, Vacancy $vacancy)
     {
         //
     }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+ /*   public function book(Request $request)
+    {
+        dd('test');
+        //return $user->role == 'Admin' or $request->user_id == $user->id and $user->role == 'Worker';
+    }
+*/
 }

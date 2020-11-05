@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class CreateUsersTable extends Migration
 {
@@ -23,12 +25,22 @@ class CreateUsersTable extends Migration
             $table->string('city', 100)->nullable();
             $table->string('phone', 30)->nullable();
             $table->string('role')->nullable()->default('Worker');
-            $table->timestamp('email_verified_at')->nullable();
-
-//            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+
         });
+
+        //
+        //Insert Admin
+        //
+         DB::table('users')->insert(
+        array(
+            'email' => 'admin@localhost',
+            'password' => Hash::make(123456),
+            'role' => 'Admin'
+        )
+    );
+
     }
 
     /**
